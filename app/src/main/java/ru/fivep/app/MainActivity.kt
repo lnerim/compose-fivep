@@ -1,13 +1,15 @@
 package ru.fivep.app
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import ru.fivep.app.model.MainData
 import ru.fivep.app.model.MainViewModel
@@ -17,6 +19,7 @@ import ru.fivep.app.ui.elements.main.MainPlug
 import ru.fivep.app.ui.elements.main.MainTopBar
 import ru.fivep.app.ui.theme.FivePTheme
 
+@ExperimentalMaterialApi
 @ExperimentalMaterial3Api
 class MainActivity : ComponentActivity() {
     private val mainViewModel by viewModels<MainViewModel>()
@@ -32,6 +35,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalMaterial3Api
 @Composable
 fun Main(
@@ -39,10 +43,6 @@ fun Main(
     onUpdateProject: (MainData) -> Unit
 ) {
     val plug = remember { mutableStateOf(dataList.isNotEmpty()) }
-    val myState = rememberLazyListState()
-// На данный момент лучший способ отслеживания прокрутки
-//    Log.d("FiveP", "Data: ${myState.isScrollInProgress}")
-    Log.d("FiveP", "Data: $myState")
 
     Scaffold(
         topBar = { MainTopBar() },
@@ -51,18 +51,19 @@ fun Main(
     )
 }
 
+@ExperimentalMaterialApi
 @ExperimentalMaterial3Api
 @Preview
 @Composable
 fun PreviewMain() {
     val dataList = remember {
         listOf(
-            MainData(0, "Test"),
-            MainData(1, "Test"),
-            MainData(2, "Test"),
-            MainData(3, "Test"),
-            MainData(4, "Test"),
-            MainData(5, "Test"),
+            MainData(0, "Test 0"),
+            MainData(1, "Test 1"),
+            MainData(2, "Test 2"),
+            MainData(3, "Test 3"),
+            MainData(4, "Test 4"),
+            MainData(5, "Test 5"),
         )
     }
     Main(dataList = dataList) {}
