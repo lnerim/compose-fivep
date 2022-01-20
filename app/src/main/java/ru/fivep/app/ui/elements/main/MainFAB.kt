@@ -2,6 +2,8 @@ package ru.fivep.app.ui.elements.main
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -11,16 +13,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import ru.fivep.app.model.MainData
 
+@ExperimentalMaterialApi
 @Composable
 fun MainFAB(
     plug: MutableState<Boolean>,
+    modalBottomSheetState: ModalBottomSheetState,
+    coroutineScope: CoroutineScope,
     onUpdateProject: (MainData) -> Unit
 ) {
     ExtendedFloatingActionButton(
         text = { Text(text = "Создать") },
         onClick = {
+            // Корутина для появления BottomSheet
+            coroutineScope.launch {
+                if (modalBottomSheetState.isVisible) {
+                    modalBottomSheetState.hide()
+                } else {
+                    modalBottomSheetState.show()
+                }
+            }
+
             onUpdateProject(MainData(0, "Test"))
             plug.value = true // TODO: Пытаться изменить на более хороший вариант
         },

@@ -9,24 +9,26 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FiveP">
+        android:theme="@style/Theme.FiveP"
+        android:windowSoftInputMode="adjustResize">
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.FiveP.NoActionBar">
+            android:theme="@style/Theme.FiveP.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SecondActivity" />
+        <activity
+            android:name=".SecondActivity"
+            android:windowSoftInputMode="adjustResize" /> <!-- BottomSheet attach keyboard -->
         <activity
             android:name=".TestActivity"
-            android:windowSoftInputMode="adjustResize"
-            />
-
+            android:windowSoftInputMode="adjustResize" /> <!-- TODO: удалить в готовом варианте -->
     </application>
 
 </manifest>

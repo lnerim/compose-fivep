@@ -4,15 +4,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
 import ru.fivep.app.model.MainData
 import ru.fivep.app.model.MainViewModel
+import ru.fivep.app.ui.elements.common.CustomTextField
 import ru.fivep.app.ui.elements.main.MainFAB
 import ru.fivep.app.ui.elements.main.MainLazyColumn
 import ru.fivep.app.ui.elements.main.MainPlug
@@ -42,13 +42,32 @@ fun Main(
     dataList: List<MainData>,
     onUpdateProject: (MainData) -> Unit
 ) {
+    val coroutineScope = rememberCoroutineScope()
     val plug = remember { mutableStateOf(dataList.isNotEmpty()) }
-
-    Scaffold(
-        topBar = { MainTopBar() },
-        content = { if (plug.value) MainLazyColumn(dataList) else MainPlug() },
-        floatingActionButton = { MainFAB(plug, onUpdateProject) }
+    val modalBottomSheetState = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden
     )
+
+    ModalBottomSheetLayout(
+        sheetContent = { SheetContent() },
+        sheetState = modalBottomSheetState
+    ) {
+        Scaffold(
+            topBar = { MainTopBar() },
+            content = { if (plug.value) MainLazyColumn(dataList) else MainPlug() },
+            floatingActionButton = {
+                MainFAB(plug, modalBottomSheetState, coroutineScope, onUpdateProject)
+            }
+        )
+    }
+}
+
+@Composable
+fun SheetContent() {
+    Column {
+        CustomTextField(placeholder = { androidx.compose.material3.Text(text = "0 текст") })
+        CustomTextField(placeholder = { androidx.compose.material3.Text(text = "1 текст") })
+    }
 }
 
 @ExperimentalMaterialApi
