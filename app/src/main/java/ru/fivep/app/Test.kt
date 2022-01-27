@@ -45,8 +45,8 @@ fun HomeScreen2() {
     ModalBottomSheetLayout(
         sheetContent = {
             Column {
-                CustomTextField(placeholder = { Text(text = "1 текст") })
-                CustomTextField(placeholder = { Text(text = "2 текст") })
+//                CustomTextField(placeholder = { Text(text = "1 текст") })
+//                CustomTextField(placeholder = { Text(text = "2 текст") })
             }
         },
         sheetState = modalBottomSheetState,
@@ -81,105 +81,3 @@ fun HomeScreen2() {
         }
     }
 }
-
-/*
-@ExperimentalMaterialApi
-@Preview
-@Composable
-fun HomeScreen1() {
-    var text by remember { mutableStateOf("")}
-    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
-        bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
-    )
-    val coroutineScope = rememberCoroutineScope()
-    BottomSheetScaffold(
-        topBar = { MainTopBar() },
-        floatingActionButton = { FloatingActionButton(onClick = { }) {
-            Icon(
-                imageVector = Icons.Outlined.Edit,
-                contentDescription = null,
-                modifier = Modifier
-                    .padding(4.dp)
-                    .size(32.dp)
-            )
-        } },
-        scaffoldState = bottomSheetScaffoldState,
-        sheetContent = {
-            Box(
-                Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
-            ) {
-                TextField(
-                    value = text,
-                    onValueChange = { text = it }
-                )
-            }
-        }, sheetPeekHeight = 0.dp
-    ) {
-        Button(onClick = {
-            coroutineScope.launch {
-
-                if (bottomSheetScaffoldState.bottomSheetState.isCollapsed) {
-                    bottomSheetScaffoldState.bottomSheetState.expand()
-                } else {
-                    bottomSheetScaffoldState.bottomSheetState.collapse()
-                }
-            }
-        }) {
-            Text(text = "Expand/Collapse Bottom Sheet")
-        }
-    }
-} */
-
-/*
-@ExperimentalMaterial3Api
-class SecondActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            FivePTheme {
-                MyNestedScroll()
-            }
-        }
-    }
-}
-
-@Composable
-fun MyNestedScroll() {
-    val toolbarHeight = 48.dp
-    val toolbarHeightPx = with(LocalDensity.current) { toolbarHeight.roundToPx().toFloat() }
-    val toolbarOffsetHeightPx = remember { mutableStateOf(0f) }
-    val nestedScrollConnection = remember {
-        object : NestedScrollConnection {
-            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
-                val delta = available.y
-                val newOffset = toolbarOffsetHeightPx.value + delta
-                toolbarOffsetHeightPx.value = newOffset.coerceIn(-toolbarHeightPx, 0f)
-                return Offset.Zero
-            }
-        }
-    }
-
-    Box(
-        Modifier
-            .fillMaxSize()
-            .nestedScroll(nestedScrollConnection)
-    ) {
-        // our list with build in nested scroll support that will notify us about its scroll
-        LazyColumn(contentPadding = PaddingValues(top = toolbarHeight)) {
-            items(100) { index ->
-                Text("I'm item $index", modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp))
-            }
-        }
-        TopAppBar(
-            modifier = Modifier
-                .height(toolbarHeight)
-                .offset { IntOffset(x = 0, y = toolbarOffsetHeightPx.value.roundToInt()) },
-            title = { Text("toolbar offset is ${toolbarOffsetHeightPx.value}")
-                Log.d("PPPPP", "Value: ${toolbarOffsetHeightPx.value}")}
-        )
-    }
-} */

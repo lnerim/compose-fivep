@@ -10,6 +10,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -19,18 +20,24 @@ import androidx.compose.ui.tooling.preview.Preview
 @Preview(showBackground = true)
 @Composable
 fun PreviewCustomTextField() {
-    CustomTextField(placeholder = { Text(text = "Введите текст") })
+    val (value, setValue) = remember { mutableStateOf("") }
+    CustomTextField(
+        placeholder = { Text(text = "Введите текст") },
+        value = value,
+        onValueChange = setValue
+    )
 }
 
 @Composable
 fun CustomTextField(
-    placeholder: @Composable (() -> Unit)? = null
+    placeholder: @Composable (() -> Unit)? = null,
+    value: String,
+    onValueChange: (String) -> Unit
 ) {
-    val text = remember { mutableStateOf("") }
 
     TextField(
         modifier = Modifier.fillMaxWidth(),
-        value = text.value,
+        value = value,
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = Color.LightGray,
             cursorColor = Color.DarkGray,
@@ -40,12 +47,12 @@ fun CustomTextField(
         ),
 //        label = { Text("123") },
         placeholder = placeholder,
-        onValueChange = { text.value = it },
+        onValueChange = { onValueChange(it) },
         shape = RoundedCornerShape(0),
         singleLine = true,
         trailingIcon = {
-            if (text.value.isNotEmpty()) {
-                IconButton(onClick = { text.value = "" }) {
+            if (value.isNotEmpty()) {
+                IconButton(onClick = { onValueChange("") } ) {
                     Icon(
                         imageVector = Icons.Outlined.Close,
                         contentDescription = null

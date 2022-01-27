@@ -37,8 +37,8 @@ fun MainItem(data: MainData) {
     Card(elevation = 8.dp,
         modifier = Modifier.padding(4.dp)
             .clickable {
-//                val intent = Intent(context, SecondActivity::class.java)
-                val intent = Intent(context, TestActivity::class.java)
+                val intent = Intent(context, SecondActivity::class.java)
+//                val intent = Intent(context, TestActivity::class.java)
                 intent.putExtra("id", data.id)
                 context.startActivity(intent)
             }
