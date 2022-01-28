@@ -10,9 +10,10 @@ class MainViewModel: ViewModel() {
         listOf<MainData>()
     )
 
+    var isEmptyData by mutableStateOf(data.isNotEmpty())
+
     fun updateProject(newData: MainData) {
         data = data + newData
+        isEmptyData = data.isNotEmpty()
     }
-
-    fun dataNotEmpty() = data.isNotEmpty()
 }

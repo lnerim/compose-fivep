@@ -20,7 +20,7 @@ import ru.fivep.app.model.MainData
 @ExperimentalMaterialApi
 @Composable
 fun MainFAB(
-    plug: MutableState<Boolean>,
+//    plug: MutableState<Boolean>,
     modalBottomSheetState: ModalBottomSheetState,
     coroutineScope: CoroutineScope,
     onUpdateProject: (MainData) -> Unit
@@ -38,7 +38,7 @@ fun MainFAB(
             }
 
             onUpdateProject(MainData(0, "Test"))
-            plug.value = true // TODO: Пытаться изменить на более хороший вариант
+//            plug.value = true // TODO: Пытаться изменить на более хороший вариант
         },
         icon = {
             Icon(
