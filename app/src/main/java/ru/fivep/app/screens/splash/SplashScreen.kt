@@ -20,14 +20,14 @@ fun SplashScreen(navController: NavController) {
         Column(modifier = Modifier.align(Alignment.Center)) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = "Jet Habit",
+                text = "FiveP",
                 textAlign = TextAlign.Center
             )
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 4.dp),
-                text = "Full Compose Demo",
+                text = "Привет!",
                 textAlign = TextAlign.Center
             )
         }
@@ -35,7 +35,7 @@ fun SplashScreen(navController: NavController) {
 
     LaunchedEffect(key1 = Unit, block = {
         // Любуемся стартовым приветсвием
-        delay(5000)
+        delay(1000)
         // запуск основного окна
         navController.navigate("main")
     })

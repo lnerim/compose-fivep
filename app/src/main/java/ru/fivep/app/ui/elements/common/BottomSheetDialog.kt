@@ -9,7 +9,7 @@ import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -18,15 +18,8 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ru.fivep.app.SecondActivity
+import ru.fivep.app.model.MainData
 import ru.fivep.app.model.MainNameModel
-
-// TODO: Попытаться починить предпросмотр
-//@Preview(showBackground = true)
-//@Composable
-//fun PreviewBottomSheetDialog() {
-//    private val textFieldViewModel by viewModels<MainNameModel>()
-//    BottomSheetDialog(textFieldViewModel)
-//}
 
 @ExperimentalMaterialApi
 @ExperimentalMaterial3Api
@@ -34,7 +27,8 @@ import ru.fivep.app.model.MainNameModel
 fun BottomSheetDialog(
     textFieldViewModel: MainNameModel,
     modalBottomSheetState: ModalBottomSheetState,
-    coroutineScope: CoroutineScope
+    coroutineScope: CoroutineScope,
+    onUpdateProject: (MainData) -> Unit,
 ) {
     val context = LocalContext.current
     Column {
@@ -54,7 +48,9 @@ fun BottomSheetDialog(
                 .padding(5.dp),
             onClick = {
                 // Создание проекта
-                Log.d("PPPPP", "Создание проекта: ${textFieldViewModel.name}")
+                onUpdateProject(MainData(0, "Тест"))
+
+                // TODO: Сделать на навигацию
                 val intent = Intent(context, SecondActivity::class.java)
                 intent.putExtra("name", textFieldViewModel.name)
                 // Удаление текста с поля ввода
@@ -65,7 +61,8 @@ fun BottomSheetDialog(
                 }
                 // Запуск Активити
                 context.startActivity(intent)
-            }
+            },
+            enabled = textFieldViewModel.name.isNotEmpty()
         ) {
             Text(text = "Создать")
         }

@@ -34,14 +34,21 @@ fun MainScreen(
 
     // Экран, поддерживающий BottomSheet
     ModalBottomSheetLayout(
-        sheetContent = { BottomSheetDialog(textFieldViewModel, modalBottomSheetState, coroutineScope) },
+        sheetContent = {
+            BottomSheetDialog(
+                textFieldViewModel,
+                modalBottomSheetState,
+                coroutineScope,
+                onUpdateProject
+            )
+        },
         sheetState = modalBottomSheetState
     ) {
         Scaffold(
             topBar = { MainTopBar() },
             content = { if (isEmptyData) MainLazyColumn(dataList) else MainPlug() },
             floatingActionButton = {
-                MainFAB( modalBottomSheetState, coroutineScope, onUpdateProject)
+                MainFAB( modalBottomSheetState, coroutineScope)
             }
         )
     }
