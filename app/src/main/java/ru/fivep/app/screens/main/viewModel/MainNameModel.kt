@@ -1,4 +1,4 @@
-package ru.fivep.app.model
+package ru.fivep.app.screens.main.viewModel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

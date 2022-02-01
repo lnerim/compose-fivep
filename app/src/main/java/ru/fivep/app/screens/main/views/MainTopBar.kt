@@ -1,4 +1,4 @@
-package ru.fivep.app.ui.elements.main
+package ru.fivep.app.screens.main.views
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size

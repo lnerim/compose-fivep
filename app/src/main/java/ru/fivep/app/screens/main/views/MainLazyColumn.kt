@@ -1,4 +1,4 @@
-package ru.fivep.app.ui.elements.main
+package ru.fivep.app.screens.main.views
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -7,16 +7,16 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ru.fivep.app.model.MainData
+import androidx.navigation.NavController
+import ru.fivep.app.screens.main.viewModel.MainData
 
 @ExperimentalMaterialApi
 @ExperimentalMaterial3Api
 @Composable
 fun MainLazyColumn(
+    navController: NavController,
     dataList: List<MainData>
 ) {
     LazyColumn(
@@ -33,7 +33,7 @@ fun MainLazyColumn(
         }
 
         items(dataList) { dataList ->
-            MainItem(data = dataList)
+            MainItem(navController = navController, data = dataList)
         }
 
         item {
@@ -44,22 +44,22 @@ fun MainLazyColumn(
         }
     }
 }
-
-@ExperimentalMaterialApi
-@ExperimentalMaterial3Api
-@Preview(showBackground = true)
-@Composable
-fun PreviewMainLazyColumn() {
-    val dataList = remember {
-        listOf(
-            MainData(0, "Test 0"),
-            MainData(1, "Test 1"),
-            MainData(2, "Test 2"),
-            MainData(3, "Test 3"),
-            MainData(4, "Test 4"),
-            MainData(5, "Test 5"),
-        )
-    }
-//    val myState: LazyListState = rememberLazyListState()
-    MainLazyColumn(dataList = dataList) //, myState = myState)
-}
+//
+//@ExperimentalMaterialApi
+//@ExperimentalMaterial3Api
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewMainLazyColumn() {
+//    val dataList = remember {
+//        listOf(
+//            MainData(0, "Test 0"),
+//            MainData(1, "Test 1"),
+//            MainData(2, "Test 2"),
+//            MainData(3, "Test 3"),
+//            MainData(4, "Test 4"),
+//            MainData(5, "Test 5"),
+//        )
+//    }
+////    val myState: LazyListState = rememberLazyListState()
+//    MainLazyColumn(dataList = dataList) //, myState = myState)
+//}

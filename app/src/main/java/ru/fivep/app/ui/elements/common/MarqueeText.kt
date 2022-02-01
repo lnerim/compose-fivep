@@ -1,5 +1,5 @@
 // https://stackoverflow.com/questions/68974245/marquee-text-effect-in-jetpack-compose ♥♥♥
-package ru.fivep.app.ui.elements
+package ru.fivep.app.ui.elements.common
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
@@ -25,7 +25,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
-import ru.fivep.app.ui.theme.Teal200
 
 @Preview(showBackground = true)
 @Composable

@@ -1,4 +1,4 @@
-package ru.fivep.app.ui.elements.main
+package ru.fivep.app.screens.main.views
 
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons

@@ -1,6 +1,5 @@
 package ru.fivep.app.ui.elements.project
 
-import android.widget.EditText
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
@@ -9,7 +8,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import ru.fivep.app.ui.elements.main.MainPlug
 
 @Composable
 fun ProjectAlertDialog(showDialog: MutableState<Boolean>) {

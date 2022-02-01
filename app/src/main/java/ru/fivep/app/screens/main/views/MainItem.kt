@@ -1,6 +1,5 @@
-package ru.fivep.app.ui.elements.main
+package ru.fivep.app.screens.main.views
 
-import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
@@ -12,13 +11,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ru.fivep.app.SecondActivity
-import ru.fivep.app.TestActivity
-import ru.fivep.app.model.MainData
-import ru.fivep.app.ui.elements.MarqueeText
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import ru.fivep.app.screens.main.viewModel.MainData
+import ru.fivep.app.ui.elements.common.MarqueeText
 
 @ExperimentalMaterialApi
 @ExperimentalMaterial3Api
@@ -26,21 +24,23 @@ import ru.fivep.app.ui.elements.MarqueeText
 @Composable
 fun ItemPreview() {
     val data = MainData(0, "Название проекта...")
-    MainItem(data = data)
+    val navController = rememberNavController()
+    MainItem(navController, data)
 }
 
 @ExperimentalMaterialApi
 @ExperimentalMaterial3Api
 @Composable
-fun MainItem(data: MainData) {
-    val context = LocalContext.current
+fun MainItem(
+    navController: NavController,
+    data: MainData
+) {
     Card(elevation = 8.dp,
-        modifier = Modifier.padding(4.dp)
+        modifier = Modifier
+            .padding(4.dp)
             .clickable {
-                val intent = Intent(context, SecondActivity::class.java)
-//                val intent = Intent(context, TestActivity::class.java)
-                intent.putExtra("id", data.id)
-                context.startActivity(intent)
+                // TODO Тут запуск след. экрана
+                navController.navigate("project/${data.id}")
             }
     ) {
         Row(modifier = Modifier.padding(all = 8.dp)) {

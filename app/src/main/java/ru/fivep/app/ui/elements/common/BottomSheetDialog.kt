@@ -1,7 +1,5 @@
 package ru.fivep.app.ui.elements.common
 
-import android.content.Intent
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
@@ -17,9 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import ru.fivep.app.SecondActivity
-import ru.fivep.app.model.MainData
-import ru.fivep.app.model.MainNameModel
+import ru.fivep.app.screens.main.viewModel.MainData
+import ru.fivep.app.screens.main.viewModel.MainNameModel
 
 @ExperimentalMaterialApi
 @ExperimentalMaterial3Api
@@ -30,7 +27,6 @@ fun BottomSheetDialog(
     coroutineScope: CoroutineScope,
     onUpdateProject: (MainData) -> Unit,
 ) {
-    val context = LocalContext.current
     Column {
         Text(
             modifier = Modifier.padding(10.dp),
@@ -51,16 +47,14 @@ fun BottomSheetDialog(
                 onUpdateProject(MainData(0, "Тест"))
 
                 // TODO: Сделать на навигацию
-                val intent = Intent(context, SecondActivity::class.java)
-                intent.putExtra("name", textFieldViewModel.name)
                 // Удаление текста с поля ввода
+                // Может и не понадобится
                 textFieldViewModel.onNameChange("000")
                 // Корутина для скрытия "диалога"
                 coroutineScope.launch {
                     if (modalBottomSheetState.isVisible) modalBottomSheetState.hide()
                 }
-                // Запуск Активити
-                context.startActivity(intent)
+                // Запуск Активити)
             },
             enabled = textFieldViewModel.name.isNotEmpty()
         ) {
