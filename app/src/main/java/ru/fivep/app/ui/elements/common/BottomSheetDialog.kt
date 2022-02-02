@@ -10,6 +10,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,6 +28,8 @@ fun BottomSheetDialog(
     modalBottomSheetState: ModalBottomSheetState,
     coroutineScope: CoroutineScope,
     onUpdateProject: (MainData) -> Unit,
+    focusRequester: FocusRequester,
+    localFocusManager: FocusManager
 ) {
     Column {
         Text(
@@ -36,7 +40,8 @@ fun BottomSheetDialog(
         CustomTextField(
             placeholder = { Text(text = "Имя проекта") },
             value = textFieldViewModel.name,
-            onValueChange = { textFieldViewModel.onNameChange(it) }
+            onValueChange = { textFieldViewModel.onNameChange(it) },
+            focusRequester = focusRequester
         )
         Button(
             modifier = Modifier
@@ -48,13 +53,15 @@ fun BottomSheetDialog(
 
                 // TODO: Сделать на навигацию
                 // Удаление текста с поля ввода
-                // Может и не понадобится
-                textFieldViewModel.onNameChange("000")
+                textFieldViewModel.onNameChange("")
                 // Корутина для скрытия "диалога"
                 coroutineScope.launch {
-                    if (modalBottomSheetState.isVisible) modalBottomSheetState.hide()
+                    if (modalBottomSheetState.isVisible) {
+                        localFocusManager.clearFocus()
+                        modalBottomSheetState.hide()
+                    }
                 }
-                // Запуск Активити)
+                // TODO?: Запуск другого экрана???
             },
             enabled = textFieldViewModel.name.isNotEmpty()
         ) {

@@ -1,4 +1,4 @@
-package ru.fivep.app.ui.elements.main
+package ru.fivep.app.screens.main.views
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -11,15 +11,18 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 @ExperimentalMaterialApi
 @Composable
 fun MainFAB(
     modalBottomSheetState: ModalBottomSheetState,
     coroutineScope: CoroutineScope,
+    focusRequester: FocusRequester,
+    localFocusManager: FocusManager
 ) {
     ExtendedFloatingActionButton(
         text = { Text(text = "Создать") },
@@ -27,8 +30,10 @@ fun MainFAB(
             // Корутина для появления BottomSheet
             coroutineScope.launch {
                 if (modalBottomSheetState.isVisible) {
+                    localFocusManager.clearFocus()
                     modalBottomSheetState.hide()
                 } else {
+                    focusRequester.requestFocus()
                     modalBottomSheetState.show()
                 }
             }
