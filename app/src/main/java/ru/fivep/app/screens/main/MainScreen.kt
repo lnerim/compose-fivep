@@ -1,14 +1,9 @@
 package ru.fivep.app.screens.main
 
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ModalBottomSheetLayout
-import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.navigation.NavController
@@ -37,6 +32,15 @@ fun MainScreen(
     // "Клавиатура"
     val focusRequester = remember { FocusRequester() }
     val localFocusManager = LocalFocusManager.current
+
+    // Скрытие, когда нажатие происходит вне поля BottomSheet
+    if (modalBottomSheetState.currentValue != ModalBottomSheetValue.Hidden) {
+        DisposableEffect(Unit) {
+            onDispose {
+                localFocusManager.clearFocus()
+            }
+        }
+    }
 
     // Экран, поддерживающий BottomSheet
     ModalBottomSheetLayout(
