@@ -12,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.CoroutineScope
@@ -51,7 +50,6 @@ fun BottomSheetDialog(
                 // Создание проекта
                 onUpdateProject(MainData(0, "Тест"))
 
-                // TODO: Сделать на навигацию
                 // Удаление текста с поля ввода
                 textFieldViewModel.onNameChange("")
                 // Корутина для скрытия "диалога"

@@ -6,24 +6,36 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import ru.fivep.app.screens.main.viewModel.MainData
+import androidx.navigation.compose.rememberNavController
 import ru.fivep.app.screens.main.viewModel.MainNameModel
+import ru.fivep.app.screens.main.viewModel.MainViewModel
 import ru.fivep.app.screens.main.views.MainLazyColumn
 import ru.fivep.app.screens.main.views.MainPlug
 import ru.fivep.app.screens.main.views.MainTopBar
 import ru.fivep.app.ui.elements.common.BottomSheetDialog
 import ru.fivep.app.screens.main.views.MainFAB
 
+@ExperimentalMaterial3Api
+@ExperimentalMaterialApi
+@Preview
+@Composable
+fun PreviewMainScreen() {
+    val navController = rememberNavController()
+    MainScreen(
+        navController = navController,
+    )
+}
+
 @ExperimentalMaterialApi
 @ExperimentalMaterial3Api
 @Composable
 fun MainScreen(
     navController: NavController,
-    dataList: List<MainData>,
-    onUpdateProject: (MainData) -> Unit,
-    isEmptyData: Boolean,
-    textFieldViewModel: MainNameModel
+    mainViewModel: MainViewModel = viewModel(),
+    textFieldViewModel: MainNameModel = viewModel()
 ) {
     val coroutineScope = rememberCoroutineScope()
     val modalBottomSheetState = rememberModalBottomSheetState(
@@ -49,7 +61,7 @@ fun MainScreen(
                 textFieldViewModel,
                 modalBottomSheetState,
                 coroutineScope,
-                onUpdateProject,
+                { mainViewModel.updateProject(it) },
                 focusRequester,
                 localFocusManager
             )
@@ -58,7 +70,10 @@ fun MainScreen(
     ) {
         Scaffold(
             topBar = { MainTopBar() },
-            content = { if (isEmptyData) MainLazyColumn(navController, dataList) else MainPlug() },
+            content = {
+                if (mainViewModel.isEmptyData) MainLazyColumn(navController, mainViewModel.data)
+                else MainPlug()
+            },
             floatingActionButton = {
                 MainFAB(
                     modalBottomSheetState,

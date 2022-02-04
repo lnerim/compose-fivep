@@ -40,9 +40,7 @@ class MainActivity : ComponentActivity() {
 
                             MainScreen(
                                 navController = navController,
-                                dataList = mainViewModel.data,
-                                onUpdateProject = { mainViewModel.updateProject(it) },
-                                isEmptyData = mainViewModel.isEmptyData,
+                                mainViewModel = mainViewModel,
                                 textFieldViewModel = textFieldViewModel
                             )
                         }
