@@ -45,8 +45,8 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable("project/{projectId}") { backStackEntry ->
-                            val projectId = backStackEntry.arguments?.getString("projectId")?.toInt()
-                            ProjectScreen(navController = navController, projectId)
+                            val projectId = backStackEntry.arguments?.getString("projectId")
+                            ProjectScreen(navController = navController, projectId?.toInt())
                         }
                     }
                 }
