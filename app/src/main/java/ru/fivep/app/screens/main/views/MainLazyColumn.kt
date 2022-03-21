@@ -10,14 +10,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import ru.fivep.app.screens.main.viewModel.MainData
+import ru.fivep.app.data.projects.ProjectEntity
 
 @ExperimentalMaterialApi
 @ExperimentalMaterial3Api
 @Composable
 fun MainLazyColumn(
     navController: NavController,
-    dataList: List<MainData>
+    dataList: List<ProjectEntity>
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize()

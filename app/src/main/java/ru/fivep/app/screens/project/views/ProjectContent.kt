@@ -24,6 +24,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/* TODO Passport:
+    1.  Название проекта
+    2.  Руководитель проекта
+    3.  Автор проекта (НЕ ОБЯЗАТЕЛЬНО)
+    4.  Учебная дисциплина
+    5.  Тип проекта
+    6.  Цель работы
+    7.  Задачи работы
+    8.  Вопрос проекта
+    9.  Краткое содержание проекта
+    10. Результат проекта (продукт)
+    */
 @Composable
 fun SecondContent() {
     var progress by remember { mutableStateOf(0f) }
@@ -84,16 +96,3 @@ fun SecondContent() {
 fun PreviewSecondContent() {
     SecondContent()
 }
-
-/* TODO Passport:
-    1.  Название проекта
-    2.  Руководитель проекта
-    3.  Автор проекта (НЕ ОБЯЗАТЕЛЬНО)
-    4.  Учебная дисциплина
-    5.  Тип проекта
-    6.  Цель работы
-    7.  Задачи работы
-    8.  Вопрос проекта
-    9.  Краткое содержание проекта
-    10. Результат проекта (продукт)
-    */

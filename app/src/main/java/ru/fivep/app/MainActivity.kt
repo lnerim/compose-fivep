@@ -1,6 +1,7 @@
 package ru.fivep.app
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -10,15 +11,18 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
 import ru.fivep.app.screens.main.MainScreen
-import ru.fivep.app.screens.main.viewModel.MainNameModel
-import ru.fivep.app.screens.main.viewModel.MainViewModel
+import ru.fivep.app.screens.main.MainViewModel
 import ru.fivep.app.screens.project.ProjectScreen
 import ru.fivep.app.screens.splash.SplashScreen
+import ru.fivep.app.screens.text_field.TextFieldScreen
+import ru.fivep.app.screens.text_field.TextFieldViewModel
 import ru.fivep.app.ui.theme.FivePTheme
 
 @ExperimentalMaterialApi
 @ExperimentalMaterial3Api
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,16 +37,15 @@ class MainActivity : ComponentActivity() {
                         // Непосредственно окна
                         composable("splash") { SplashScreen(navController) }
                         composable("main") {
-                            // Список проектов
                             val mainViewModel by viewModels<MainViewModel>()
-                            // Имя проекта для поля ввода
-                            val textFieldViewModel by viewModels<MainNameModel>()
-
                             MainScreen(
                                 navController = navController,
-                                mainViewModel = mainViewModel,
-                                textFieldViewModel = textFieldViewModel
+                                mainViewModel = mainViewModel
                             )
+                        }
+                        composable("text_field") {
+                            val textFieldViewModel by viewModels<TextFieldViewModel>()
+                            TextFieldScreen(navController, textFieldViewModel)
                         }
                         composable("project/{projectId}") { backStackEntry ->
                             val projectId = backStackEntry.arguments?.getString("projectId")

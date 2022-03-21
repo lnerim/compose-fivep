@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import ru.fivep.app.screens.main.viewModel.MainData
+import ru.fivep.app.data.projects.ProjectEntity
 import ru.fivep.app.ui.elements.common.MarqueeText
 
 @ExperimentalMaterialApi
@@ -23,7 +23,7 @@ import ru.fivep.app.ui.elements.common.MarqueeText
 @Preview(showBackground = true)
 @Composable
 fun ItemPreview() {
-    val data = MainData(0, "Название проекта...")
+    val data = ProjectEntity(0, "Название проекта...")
     val navController = rememberNavController()
     MainItem(navController, data)
 }
@@ -33,7 +33,7 @@ fun ItemPreview() {
 @Composable
 fun MainItem(
     navController: NavController,
-    data: MainData
+    data: ProjectEntity
 ) {
     Card(elevation = 8.dp,
         modifier = Modifier
@@ -59,7 +59,7 @@ fun MainItem(
                     .height(40.dp),
                 contentAlignment = Alignment.Center
             ) {
-                MarqueeText(text = data.name)
+                MarqueeText(text = data.title)
             }
         }
     }

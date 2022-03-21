@@ -3,6 +3,7 @@
     package="ru.fivep.app">
 
     <application
+        android:name=".FivePApp"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
