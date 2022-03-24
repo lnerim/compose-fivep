@@ -1,5 +1,6 @@
 package ru.fivep.app.screens.main.views
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
@@ -39,8 +40,8 @@ fun MainItem(
         modifier = Modifier
             .padding(4.dp)
             .clickable {
-                // TODO Тут запуск след. экрана
-                navController.navigate("project/${data.id}")
+                Log.d("PPPPP", "Data id: ${data.id}")
+                navController.navigate("project?projectId=${data.id}")
             }
     ) {
         Row(modifier = Modifier.padding(all = 8.dp)) {

@@ -39,6 +39,7 @@ class FivePModule {
             getProjects = GetProjects(repository),
             getProject = GetProject(repository),
             addProject = AddProject(repository),
+            updateProject = UpdateProject(repository),
             deleteProject = DeleteProject(repository)
         )
 

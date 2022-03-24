@@ -9,7 +9,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onEmpty
 import ru.fivep.app.data.projects.ProjectEntity
 import ru.fivep.app.data.projects.use_case.ProjectUseCases
 import javax.inject.Inject

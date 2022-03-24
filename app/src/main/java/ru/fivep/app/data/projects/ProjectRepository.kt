@@ -16,6 +16,10 @@ class ProjectRepository @Inject constructor(
         projectDao.addProject(item)
     }
 
+    override suspend fun updateProject(item: ProjectEntity) {
+        projectDao.updateProject(item)
+    }
+
     override suspend fun deleteProject(item: ProjectEntity) {
         projectDao.deleteProject(item)
     }

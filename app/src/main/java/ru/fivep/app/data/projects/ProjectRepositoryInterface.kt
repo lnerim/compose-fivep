@@ -10,5 +10,7 @@ interface ProjectRepositoryInterface {
 
     suspend fun addProject(item: ProjectEntity)
 
+    suspend fun updateProject(item: ProjectEntity)
+
     suspend fun deleteProject(item: ProjectEntity)
 }
