@@ -1,14 +1,13 @@
 package ru.fivep.app.screens.project
 
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import ru.fivep.app.screens.project.views.ProjectDeleteDialog
 import ru.fivep.app.screens.project.views.SecondContent
 import ru.fivep.app.screens.project.views.SecondTopBar
 
@@ -36,6 +35,19 @@ fun ProjectScreen(
 
     val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
 
+    var dialogVisible by remember { mutableStateOf(false) }
+    if (dialogVisible) {
+        ProjectDeleteDialog(
+            onDismissRequest = { dialogVisible = false },
+            onConfirm = {
+                dialogVisible = false
+                projectViewModel.onEvent(ProjectEvent.DeleteProject)
+                navController.navigateUp()
+            },
+            onDismiss = { dialogVisible = false }
+        )
+    }
+
     LaunchedEffect(key1 = Unit) {
         projectViewModel.setProjectId(projectId)
     }
@@ -51,15 +63,9 @@ fun ProjectScreen(
                         snackbarHostState.showSnackbar("Сохранено!")
                     }
                 },
-                {
-                    projectViewModel.onEvent(ProjectEvent.DeleteProject)
-                    navController.navigateUp()
-                    coroutineScope.launch {
-                        snackbarHostState.showSnackbar("Удалено!")
-                    }
-                }
+                { dialogVisible = true } // Диалог, чтобы подтвердить удаление
             )
-                 },
+        },
         content = { SecondContent(projectViewModel) },
         floatingActionButton = {}
     )
