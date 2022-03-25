@@ -20,18 +20,6 @@ import androidx.compose.ui.unit.sp
 import ru.fivep.app.screens.project.ProjectEvent
 import ru.fivep.app.screens.project.ProjectViewModel
 
-/* TODO Passport:
-    1.  Название проекта
-    2.  Руководитель проекта
-    3.  Автор проекта (НЕ ОБЯЗАТЕЛЬНО)
-    4.  Учебная дисциплина
-    5.  Тип проекта
-    6.  Цель работы
-    7.  Задачи работы
-    8.  Вопрос проекта
-    9.  Краткое содержание проекта
-    10. Результат проекта (продукт)
-    */
 @Composable
 fun SecondContent(
     projVM: ProjectViewModel

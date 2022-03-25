@@ -11,12 +11,13 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.fivep.app.data.projects.ProjectEntity
 import ru.fivep.app.data.projects.use_case.ProjectUseCases
+import ru.fivep.app.data.tasks.use_case.TaskUseCases
 import javax.inject.Inject
 
 @HiltViewModel
 class ProjectViewModel @Inject constructor(
     private val projectUseCases: ProjectUseCases,
-    savedStateHandle: SavedStateHandle
+    private val taskUseCases: TaskUseCases
 ): ViewModel() {
 
     private val _state = mutableStateOf(ProjectState())

@@ -11,6 +11,10 @@ import ru.fivep.app.data.projects.ProjectDao
 import ru.fivep.app.data.projects.ProjectRepository
 import ru.fivep.app.data.projects.ProjectRepositoryInterface
 import ru.fivep.app.data.projects.use_case.*
+import ru.fivep.app.data.tasks.TaskRepository
+import ru.fivep.app.data.tasks.TaskRepositoryInterface
+import ru.fivep.app.data.tasks.TasksDao
+import ru.fivep.app.data.tasks.use_case.*
 import javax.inject.Singleton
 
 @Module
@@ -27,6 +31,7 @@ class FivePModule {
             .fallbackToDestructiveMigration()
             .build()
 
+    // Project
     @Provides
     @Singleton
     fun provideProjectRepository(fivePDatabase: FivePDatabase): ProjectRepositoryInterface =
@@ -46,4 +51,25 @@ class FivePModule {
     @Provides
     @Singleton
     fun provideProjectDao(fivePDatabase: FivePDatabase): ProjectDao = fivePDatabase.projectDao()
+
+    // Tasks
+    @Provides
+    @Singleton
+    fun provideTaskRepository(fivePDatabase: FivePDatabase): TaskRepositoryInterface =
+        TaskRepository(fivePDatabase.taskDao())
+
+    @Provides
+    @Singleton
+    fun provideTaskUseCases(repository: TaskRepositoryInterface): TaskUseCases =
+        TaskUseCases(
+            getTasks = GetTasks(repository),
+            getTask = GetTask(repository),
+            addTask = AddTask(repository),
+            updateTask = UpdateTask(repository),
+            deleteTask = DeleteTask(repository)
+        )
+
+    @Provides
+    @Singleton
+    fun provideTaskDao(fivePDatabase: FivePDatabase): TasksDao = fivePDatabase.taskDao()
 }
