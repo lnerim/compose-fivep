@@ -3,14 +3,15 @@ package ru.fivep.app.screens.project
 import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ru.fivep.app.data.projects.ProjectEntity
 import ru.fivep.app.data.projects.use_case.ProjectUseCases
+import ru.fivep.app.data.tasks.TaskEntity
 import ru.fivep.app.data.tasks.use_case.TaskUseCases
 import javax.inject.Inject
 
@@ -40,30 +41,15 @@ class ProjectViewModel @Inject constructor(
                 )
             }
         }
-    }
 
-//    init {
-//        Log.d("PPPPP", "init project VM")
-//        savedStateHandle.get<Int>("projectId")?.let { projectId ->
-//            Log.d("PPPPP", "projectId: $projectId")
-//            viewModelScope.launch {
-//                projectUseCases.getProject(projectId)?.let { project ->
-//                    Log.d("PPPPP", "get project")
-//                    _state.value = state.value.copy(
-//                        id = project.id,
-//                        title = project.title,
-//                        supervisor = project.supervisor.orEmpty(),
-//                        discipline = project.discipline.orEmpty(),
-//                        type = project.type.orEmpty(),
-//                        purpose = project.purpose.orEmpty(),
-//                        question = project.question.orEmpty(),
-//                        summary = project.summary.orEmpty(),
-//                        result = project.result.orEmpty()
-//                    )
-//                }
-//            }
-//        }
-//    }
+        taskUseCases.getTasks(projectId)
+            .onEach { tasks ->
+                _state.value = state.value.copy(
+                    tasksList = tasks
+                )
+            }
+            .launchIn(viewModelScope)
+    }
 
     fun onEvent(event: ProjectEvent) {
         when (event) {
@@ -144,7 +130,8 @@ data class ProjectState(
     val purpose: String = "",
     val question: String = "",
     val summary: String = "",
-    val result: String = ""
+    val result: String = "",
+    val tasksList: List<TaskEntity> = emptyList()
 )
 
 sealed class ProjectEvent {

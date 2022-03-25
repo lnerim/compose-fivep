@@ -8,7 +8,6 @@ import androidx.activity.viewModels
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Surface
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -20,8 +19,10 @@ import ru.fivep.app.screens.main.MainViewModel
 import ru.fivep.app.screens.project.ProjectScreen
 import ru.fivep.app.screens.project.ProjectViewModel
 import ru.fivep.app.screens.splash.SplashScreen
-import ru.fivep.app.screens.text_field.TextFieldScreen
-import ru.fivep.app.screens.text_field.TextFieldViewModel
+import ru.fivep.app.screens.create_project.CreateProjectScreen
+import ru.fivep.app.screens.create_project.CreateProjectViewModel
+import ru.fivep.app.screens.create_task.CreateTask
+import ru.fivep.app.screens.create_task.CreateTaskViewModel
 import ru.fivep.app.ui.theme.FivePTheme
 
 @ExperimentalMaterialApi
@@ -48,8 +49,8 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable("text_field") {
-                            val textFieldViewModel by viewModels<TextFieldViewModel>()
-                            TextFieldScreen(navController, textFieldViewModel)
+                            val textFieldViewModel by viewModels<CreateProjectViewModel>()
+                            CreateProjectScreen(navController, textFieldViewModel)
                         }
                         composable(
                             route = "project?projectId={projectId}",
@@ -60,10 +61,21 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         ) {
-                            it.savedStateHandle.set("projectId", it.arguments?.get("projectId"))
-                            Log.d("PPPPP", "keys" + it.savedStateHandle.keys())
                             val projectViewModel by viewModels<ProjectViewModel>()
                             ProjectScreen(projectViewModel, navController, it.arguments?.getInt("projectId") ?: -1)
+                        }
+                        composable(
+                            route = "create_task?projectId={projectId}",
+                            arguments = listOf(
+                                navArgument("projectId") {
+                                    type = NavType.IntType
+                                    defaultValue = -1
+                                }
+                            )
+                        ) {
+                            val projectId = it.arguments?.getInt("projectId") ?: -1
+                            val createTaskViewModel by viewModels<CreateTaskViewModel>()
+                            CreateTask(projectId, navController, createTaskViewModel)
                         }
                     }
                 }

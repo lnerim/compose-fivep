@@ -24,14 +24,6 @@ class MainViewModel @Inject constructor(
 
     init {
         getProjects()
-        Log.d("PPPPP", "init MainViewModel")
-    }
-
-    fun onEvent(event: ProjectEvent) {
-        when(event) {
-            is ProjectEvent.NewProject -> {}
-
-        }
     }
 
     private fun getProjects() {
@@ -50,7 +42,3 @@ class MainViewModel @Inject constructor(
 data class MainState(
     val projectList: List<ProjectEntity> = emptyList()
 )
-
-sealed class ProjectEvent {
-    data class NewProject(val value: Int): ProjectEvent()
-}

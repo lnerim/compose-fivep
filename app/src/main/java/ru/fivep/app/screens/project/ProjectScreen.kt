@@ -29,7 +29,7 @@ fun ProjectScreen(
     navController: NavController,
     projectId: Int
 ) {
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackBarHostState = remember { SnackbarHostState() }
 
     val coroutineScope = rememberCoroutineScope()
 
@@ -53,20 +53,22 @@ fun ProjectScreen(
     }
 
     Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) },
+        snackbarHost = { SnackbarHost(snackBarHostState) },
         topBar = {
             SecondTopBar(
                 scrollBehavior,
                 {
                     projectViewModel.onEvent(ProjectEvent.SaveProject)
                     coroutineScope.launch {
-                        snackbarHostState.showSnackbar("Сохранено!")
+                        snackBarHostState.showSnackbar("Сохранено!")
                     }
                 },
                 { dialogVisible = true } // Диалог, чтобы подтвердить удаление
             )
         },
         content = { SecondContent(projectViewModel) },
-        floatingActionButton = {}
+        floatingActionButton = { FloatingActionButton(onClick = { navController.navigate("create_task?projectId=$projectId") }) {
+            Text("Новая задача")
+        } }
     )
 }

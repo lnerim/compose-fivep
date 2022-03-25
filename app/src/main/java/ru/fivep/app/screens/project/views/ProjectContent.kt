@@ -4,9 +4,10 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.AbsoluteRoundedCornerShape
 import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.material.TextField
 import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.runtime.*
@@ -39,6 +40,7 @@ fun SecondContent(
         progress < 0.75f -> { Color.Yellow }
         else -> { Color.Green }
     }
+
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -119,6 +121,10 @@ fun SecondContent(
                 }
             }
         }
+        items(state.tasksList) { task ->
+            Text(text = "id = ${task.id}, pID = ${task.projectId}, task = ${task.task}")
+        }
+
     }
 }
 

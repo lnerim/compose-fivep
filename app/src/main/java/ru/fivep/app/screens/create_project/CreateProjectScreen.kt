@@ -1,4 +1,4 @@
-package ru.fivep.app.screens.text_field
+package ru.fivep.app.screens.create_project
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,9 +12,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun TextFieldScreen(
+fun CreateProjectScreen(
     navController: NavController,
-    viewModel: TextFieldViewModel = viewModel()
+    viewModel: CreateProjectViewModel = viewModel()
 ) {
     var text by remember {
         mutableStateOf("")
@@ -40,5 +40,5 @@ fun TextFieldScreen(
 @Composable
 fun PreviewTFS() {
     val navController = rememberNavController()
-    TextFieldScreen(navController)
+    CreateProjectScreen(navController)
 }

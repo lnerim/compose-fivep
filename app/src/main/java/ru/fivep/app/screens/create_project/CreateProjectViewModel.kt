@@ -1,4 +1,4 @@
-package ru.fivep.app.screens.text_field
+package ru.fivep.app.screens.create_project
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,7 +9,7 @@ import ru.fivep.app.data.projects.use_case.ProjectUseCases
 import javax.inject.Inject
 
 @HiltViewModel
-class TextFieldViewModel @Inject constructor(
+class CreateProjectViewModel @Inject constructor(
     private val projectUseCases: ProjectUseCases
 ) : ViewModel() {
     fun saveProject(text: String) {
