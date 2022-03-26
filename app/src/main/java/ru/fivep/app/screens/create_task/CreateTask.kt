@@ -32,8 +32,11 @@ fun CreateTask(
 
     Scaffold(
         topBar = {
+
             CenterAlignedTopAppBar(
+
                 title = { Text(text = "Задача") },
+
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
@@ -42,6 +45,7 @@ fun CreateTask(
                         )
                     }
                 },
+
                 actions = {
                     if (taskId != -1) {
                         IconButton(

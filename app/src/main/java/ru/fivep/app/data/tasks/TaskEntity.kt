@@ -6,8 +6,10 @@ import java.lang.Exception
 
 @Entity(tableName = TaskEntity.TABLE_NAME)
 data class TaskEntity(
+
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
+
     val projectId: Int,
     val task: String
 ) {

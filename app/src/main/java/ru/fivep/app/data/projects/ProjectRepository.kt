@@ -6,6 +6,7 @@ import javax.inject.Inject
 class ProjectRepository @Inject constructor(
     private val projectDao: ProjectDao
 ) : ProjectRepositoryInterface{
+
     override fun getProjects(): Flow<List<ProjectEntity>> =
         projectDao.getAllProjects()
 

@@ -8,8 +8,11 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import ru.fivep.app.data.projects.ProjectEntity
 
 @ExperimentalMaterialApi
@@ -25,9 +28,10 @@ fun MainLazyColumn(
         item {
             Text(
                 text = "Список проектов",
+                fontStyle = FontStyle.Italic,
                 modifier = Modifier.padding(
                     vertical = 4.dp,
-                    horizontal = 16.dp
+                    horizontal = 12.dp
                 )
             )
         }
@@ -44,22 +48,19 @@ fun MainLazyColumn(
         }
     }
 }
-//
-//@ExperimentalMaterialApi
-//@ExperimentalMaterial3Api
-//@Preview(showBackground = true)
-//@Composable
-//fun PreviewMainLazyColumn() {
-//    val dataList = remember {
-//        listOf(
-//            MainData(0, "Test 0"),
-//            MainData(1, "Test 1"),
-//            MainData(2, "Test 2"),
-//            MainData(3, "Test 3"),
-//            MainData(4, "Test 4"),
-//            MainData(5, "Test 5"),
-//        )
-//    }
-////    val myState: LazyListState = rememberLazyListState()
-//    MainLazyColumn(dataList = dataList) //, myState = myState)
-//}
+
+@ExperimentalMaterial3Api
+@ExperimentalMaterialApi
+@Preview(showBackground = true)
+@Composable
+fun PreviewMainLazyColumn() {
+    val navController = rememberNavController()
+    val data = listOf(
+        ProjectEntity(1, "Проект 1"),
+        ProjectEntity(2, "Проект 2"),
+        ProjectEntity(3, "Проект 3"),
+        ProjectEntity(4, "Проект 4"),
+        ProjectEntity(5, "Проект 5")
+    )
+    MainLazyColumn(navController, data)
+}

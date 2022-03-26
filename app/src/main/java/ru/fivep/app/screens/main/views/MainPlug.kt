@@ -1,45 +1,46 @@
 package ru.fivep.app.screens.main.views
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddChart
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ru.fivep.app.R
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun MainPlug() {
-    Box(modifier = Modifier.fillMaxSize()) {
-        Card(
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Box(
             modifier = Modifier
-                .width(250.dp)
-                .height(250.dp)
-                .align(Alignment.Center),
-            shape = RoundedCornerShape(32.dp),
-            elevation = 50.dp
+                .wrapContentSize()
+                .align(Alignment.Center)
         ) {
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxSize()
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_baseline_addchart_24),
-                    contentDescription = null,
-                    modifier = Modifier.size(170.dp)
+                Icon(
+                    modifier = Modifier.size(200.dp),
+                    imageVector = Icons.Default.AddChart,
+                    contentDescription = null
                 )
                 Spacer(modifier = Modifier.padding(vertical = 4.dp))
                 Text(
-                    text = "У Вас нет ни одного проекта :(\nСамое время создать новый!",
-                    fontSize = 16.sp
+                    text = "Ни одного проекта нет\nСоздайте новый",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Medium,
+                    textAlign = TextAlign.Center
                 )
             }
         }

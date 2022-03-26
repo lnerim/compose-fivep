@@ -10,8 +10,6 @@ import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 
-// TopBar примерного вида TODO: обновить цвета, иконки...
-@ExperimentalMaterial3Api
 @Composable
 fun SecondTopBar(
     scrollBehavior: TopAppBarScrollBehavior,
@@ -29,13 +27,13 @@ fun SecondTopBar(
             }
         },
         actions = {
-            IconButton(onClick = { onDelete() }) {
+            IconButton(onClick = onDelete) {
                 Icon(
                     imageVector = Icons.Filled.Delete,
                     contentDescription = "Удалить"
                 )
             }
-            IconButton(onClick = { onSave() }) {
+            IconButton(onClick = onSave) {
                 Icon(
                     imageVector = Icons.Filled.Done,
                     contentDescription = "Сохранить"

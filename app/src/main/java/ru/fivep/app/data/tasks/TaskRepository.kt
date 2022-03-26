@@ -6,6 +6,7 @@ import javax.inject.Inject
 class TaskRepository @Inject constructor(
     private val tasksDao: TasksDao
 ) : TaskRepositoryInterface {
+
     override fun getTasks(projectId: Int): Flow<List<TaskEntity>> =
         tasksDao.getTasksByProject(projectId)
 
@@ -23,5 +24,4 @@ class TaskRepository @Inject constructor(
     override suspend fun deleteTask(item: TaskEntity) {
         tasksDao.deleteTask(item)
     }
-
 }

@@ -20,6 +20,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class FivePModule {
+
     @Provides
     @Singleton
     fun provideRoomDatabase(@ApplicationContext context: Context): FivePDatabase =

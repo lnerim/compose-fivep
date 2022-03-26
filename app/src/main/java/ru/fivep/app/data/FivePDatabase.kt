@@ -11,7 +11,7 @@ import ru.fivep.app.data.tasks.TasksDao
     entities = [
         ProjectEntity::class,
         TaskEntity::class
-               ],
+    ],
     version = 1
 )
 abstract class FivePDatabase: RoomDatabase() {

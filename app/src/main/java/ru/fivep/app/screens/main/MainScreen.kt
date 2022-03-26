@@ -8,6 +8,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import ru.fivep.app.data.projects.ProjectEntity
 import ru.fivep.app.screens.main.views.MainFAB
 import ru.fivep.app.screens.main.views.MainLazyColumn
 import ru.fivep.app.screens.main.views.MainPlug
@@ -20,10 +21,7 @@ fun MainScreen(
     navController: NavController,
     mainViewModel: MainViewModel = viewModel()
 ) {
-    // ViewModel
     val state = mainViewModel.state.value
-
-    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         topBar = { MainTopBar() },
@@ -43,9 +41,31 @@ fun MainScreen(
 @ExperimentalMaterialApi
 @Preview
 @Composable
-fun PreviewMainScreen() {
+fun PreviewMainScreen1() {
+    Scaffold(
+        topBar = { MainTopBar() },
+        content = { MainPlug() },
+        floatingActionButton = { MainFAB {} }
+    )
+}
+
+@ExperimentalMaterial3Api
+@ExperimentalMaterialApi
+@Preview
+@Composable
+fun PreviewMainScreen2() {
     val navController = rememberNavController()
-    MainScreen(
-        navController = navController,
+    val data = listOf(
+        ProjectEntity(1, "Проект 1"),
+        ProjectEntity(2, "Проект 2"),
+        ProjectEntity(3, "Проект 3"),
+        ProjectEntity(4, "Проект 4"),
+        ProjectEntity(5, "Проект 5")
+    )
+
+    Scaffold(
+        topBar = { MainTopBar() },
+        content = { MainLazyColumn(navController, data) },
+        floatingActionButton = { MainFAB {} }
     )
 }

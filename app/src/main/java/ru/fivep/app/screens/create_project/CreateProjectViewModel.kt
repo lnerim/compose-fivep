@@ -12,6 +12,7 @@ import javax.inject.Inject
 class CreateProjectViewModel @Inject constructor(
     private val projectUseCases: ProjectUseCases
 ) : ViewModel() {
+
     fun saveProject(text: String) {
         viewModelScope.launch {
             projectUseCases.addProject(

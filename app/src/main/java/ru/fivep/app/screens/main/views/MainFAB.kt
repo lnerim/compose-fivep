@@ -1,6 +1,5 @@
 package ru.fivep.app.screens.main.views
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
@@ -18,15 +17,18 @@ fun MainFAB(
     onClick: () -> Unit
 ) {
     ExtendedFloatingActionButton(
-        text = { Text(text = "Создать") },
+        text = {
+            Text(
+                text = "Создать проект"
+            )
+        },
         onClick = onClick,
         icon = {
             Icon(
                 imageVector = Icons.Outlined.Edit,
                 contentDescription = null,
                 modifier = Modifier
-                    .padding(4.dp)
-                    .size(32.dp)
+                    .size(24.dp)
             )
         }
     )

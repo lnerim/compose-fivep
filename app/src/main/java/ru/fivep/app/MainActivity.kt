@@ -29,18 +29,21 @@ import ru.fivep.app.ui.theme.FivePTheme
 @ExperimentalMaterial3Api
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
+
             val navController = rememberNavController()
 
-            // Тема приложения
             FivePTheme {
                 Surface {
-                    // Навигация окон
+
                     NavHost(navController = navController, startDestination = "splash") {
-                        // Непосредственно окна
+
                         composable("splash") { SplashScreen(navController) }
+
                         composable("main") {
 
                             val mainViewModel by viewModels<MainViewModel>()
@@ -48,6 +51,7 @@ class MainActivity : ComponentActivity() {
                             MainScreen(navController, mainViewModel)
 
                         }
+
                         composable("text_field") {
 
                             val textFieldViewModel by viewModels<CreateProjectViewModel>()
@@ -55,6 +59,7 @@ class MainActivity : ComponentActivity() {
                             CreateProjectScreen(navController, textFieldViewModel)
 
                         }
+
                         composable(
                             route = "project?projectId={projectId}",
                             arguments = listOf(
@@ -71,6 +76,7 @@ class MainActivity : ComponentActivity() {
                             ProjectScreen(projectViewModel, navController, projectId)
 
                         }
+
                         composable(
                             route = "create_task?projectId={projectId}&taskId={taskId}",
                             arguments = listOf(

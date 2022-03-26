@@ -12,14 +12,14 @@ fun ProjectDeleteDialog(
     onDismiss: () -> Unit
 ) {
     AlertDialog(
-        onDismissRequest = { onDismissRequest() },
+        onDismissRequest = onDismissRequest,
         confirmButton = {
-            Button(onClick = { onConfirm() }) {
+            Button(onClick = onConfirm) {
                 Text(text = "Удалить")
             }
         },
         dismissButton = {
-            Button(onClick = { onDismiss() }) {
+            Button(onClick = onDismiss) {
                 Text(text = "Отмена")
             }
         },
