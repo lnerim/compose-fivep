@@ -66,8 +66,13 @@ fun ProjectScreen(
                 { dialogVisible = true } // Диалог, чтобы подтвердить удаление
             )
         },
-        content = { SecondContent(projectViewModel) },
-        floatingActionButton = { FloatingActionButton(onClick = { navController.navigate("create_task?projectId=$projectId") }) {
+        content = { SecondContent(navController, projectViewModel) },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    navController.navigate("create_task?projectId=$projectId")
+                }
+            ) {
             Text("Новая задача")
         } }
     )

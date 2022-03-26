@@ -19,5 +19,4 @@ class CreateProjectViewModel @Inject constructor(
             )
         }
     }
-
 }

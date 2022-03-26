@@ -42,15 +42,18 @@ class MainActivity : ComponentActivity() {
                         // Непосредственно окна
                         composable("splash") { SplashScreen(navController) }
                         composable("main") {
+
                             val mainViewModel by viewModels<MainViewModel>()
-                            MainScreen(
-                                navController = navController,
-                                mainViewModel = mainViewModel
-                            )
+
+                            MainScreen(navController, mainViewModel)
+
                         }
                         composable("text_field") {
+
                             val textFieldViewModel by viewModels<CreateProjectViewModel>()
+
                             CreateProjectScreen(navController, textFieldViewModel)
+
                         }
                         composable(
                             route = "project?projectId={projectId}",
@@ -61,21 +64,32 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         ) {
+
+                            val projectId = it.arguments?.getInt("projectId") ?: -1
                             val projectViewModel by viewModels<ProjectViewModel>()
-                            ProjectScreen(projectViewModel, navController, it.arguments?.getInt("projectId") ?: -1)
+
+                            ProjectScreen(projectViewModel, navController, projectId)
+
                         }
                         composable(
-                            route = "create_task?projectId={projectId}",
+                            route = "create_task?projectId={projectId}&taskId={taskId}",
                             arguments = listOf(
                                 navArgument("projectId") {
+                                    type = NavType.IntType
+                                },
+                                navArgument("taskId") {
                                     type = NavType.IntType
                                     defaultValue = -1
                                 }
                             )
                         ) {
+
                             val projectId = it.arguments?.getInt("projectId") ?: -1
+                            val taskId: Int = it.arguments?.getInt("taskId") ?: -1
                             val createTaskViewModel by viewModels<CreateTaskViewModel>()
-                            CreateTask(projectId, navController, createTaskViewModel)
+
+                            CreateTask(projectId, navController, createTaskViewModel, taskId)
+
                         }
                     }
                 }

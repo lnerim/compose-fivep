@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,20 +21,40 @@ import androidx.navigation.compose.rememberNavController
 fun CreateTask(
     projectId: Int,
     navController: NavController,
-    createTaskViewModel: CreateTaskViewModel = viewModel()
+    createTaskViewModel: CreateTaskViewModel = viewModel(),
+    taskId: Int = -1
 ) {
-    var text by remember { mutableStateOf("") }
+    val state = createTaskViewModel.state.value
+
+    LaunchedEffect(key1 = true) {
+        createTaskViewModel.setData(projectId, taskId)
+    }
 
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text(text = "Новая задача") },
+                title = { Text(text = "Задача") },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Назад"
                         )
+                    }
+                },
+                actions = {
+                    if (taskId != -1) {
+                        IconButton(
+                            onClick = {
+                                navController.navigateUp()
+                                createTaskViewModel.onEvent(TaskEvent.DeleteTask)
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = "Удалить"
+                            )
+                        }
                     }
                 }
             )
@@ -44,28 +65,27 @@ fun CreateTask(
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
+                // TODO padding or arrangement
                 modifier = Modifier.fillMaxSize()
             ) {
-                OutlinedTextField(value = text, onValueChange = { text = it})
+                OutlinedTextField(
+                    value = state.task,
+                    onValueChange = { createTaskViewModel.onEvent(TaskEvent.ChangeTask(it)) }
+                )
+                // TODO Spacer()
                 Button(
                     onClick = {
-                        createTaskViewModel.saveTask(text, projectId)
                         navController.navigateUp()
-                              },
-                    enabled = text.isNotBlank()
+                        createTaskViewModel.onEvent(
+                            if (state.id == -1) TaskEvent.AddTask
+                            else TaskEvent.UpdateTask
+                        )
+                    },
+                    enabled = state.task.isNotBlank()
                 ) {
-                    Text("Создать")
+                    Text( if (state.id == -1) "Создать" else "Обновить" )
                 }
-
             }
         }
     }
-}
-
-@ExperimentalMaterial3Api
-@Preview(showBackground = true)
-@Composable
-fun Test123() {
-    val navController = rememberNavController()
-    CreateTask(0, navController)
 }

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.AbsoluteRoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.material.TextField
@@ -18,11 +19,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import ru.fivep.app.screens.project.ProjectEvent
 import ru.fivep.app.screens.project.ProjectViewModel
 
 @Composable
 fun SecondContent(
+    navController: NavController,
     projVM: ProjectViewModel
 ) {
     val state = projVM.state.value
@@ -122,7 +125,18 @@ fun SecondContent(
             }
         }
         items(state.tasksList) { task ->
-            Text(text = "id = ${task.id}, pID = ${task.projectId}, task = ${task.task}")
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .clickable {
+                        navController.navigate(
+                            "create_task?projectId=${task.projectId}&taskId=${task.id}"
+                        )
+                    }
+            ) {
+                Text(text = "id = ${task.id}, pID = ${task.projectId}, task = ${task.task}")
+            }
         }
 
     }
