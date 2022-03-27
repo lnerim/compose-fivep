@@ -1,9 +1,10 @@
 package ru.fivep.app.screens.project.views
 
-import androidx.compose.material.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DeleteForever
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.font.FontWeight
 
 @Composable
 fun ProjectDeleteDialog(
@@ -19,15 +20,24 @@ fun ProjectDeleteDialog(
             }
         },
         dismissButton = {
-            Button(onClick = onDismiss) {
+            FilledTonalButton(onClick = onDismiss) {
                 Text(text = "Отмена")
             }
         },
+        icon = {
+               Icon(imageVector = Icons.Default.DeleteForever, contentDescription = null)
+        },
         title = {
-            Text("Удаление проекта")
+            Text(
+                text = "Удаление проекта",
+                fontWeight = FontWeight.SemiBold
+            )
         },
         text = {
-            Text("Вы точно желаете удалить проект?")
+            Text(
+                text = "Вы уверенны?\nВосстановить его будет нельзя!",
+                fontWeight = FontWeight.Light
+            )
         }
     )
 }

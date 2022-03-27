@@ -1,8 +1,9 @@
-package ru.fivep.app.screens.main.views
+package ru.fivep.app.screens.project.views
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PushPin
 import androidx.compose.material.icons.filled.Source
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -13,39 +14,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import ru.fivep.app.data.projects.ProjectEntity
+import ru.fivep.app.data.tasks.TaskEntity
 import ru.fivep.app.ui.elements.common.MarqueeText
 
-@Preview(showBackground = true)
 @Composable
-fun ItemPreview() {
-    val data = ProjectEntity(0, "Название проекта...")
-    val navController = rememberNavController()
-    MainItem(navController, data)
-}
-
-@Composable
-fun MainItem(
-    navController: NavController,
-    data: ProjectEntity
+fun ProjectTaskItem(
+    onClick: () -> Unit,
+    data: TaskEntity
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .clickable {
-                navController.navigate("project?projectId=${data.id}")
-            }
+            .clickable(onClick = onClick)
     ) {
         Row(
             modifier = Modifier.padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                imageVector = Icons.Filled.Source,
-                contentDescription = "Аккаунт",
+                imageVector = Icons.Filled.PushPin,
+                contentDescription = "Задача",
                 modifier = Modifier
                     .size(24.dp)
             )
@@ -58,7 +47,7 @@ fun MainItem(
                 contentAlignment = Alignment.Center
             ) {
                 MarqueeText(
-                    text = data.title,
+                    text = data.task,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.W400
                 )
@@ -67,4 +56,15 @@ fun MainItem(
 
         Divider(startIndent = 8.dp)
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewProjectTaskItem() {
+    val data = TaskEntity(
+        id = 0,
+        projectId = 0,
+        task = "Моя Задача"
+    )
+    ProjectTaskItem(onClick = {}, data = data)
 }

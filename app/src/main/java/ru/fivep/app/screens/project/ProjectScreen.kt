@@ -1,26 +1,17 @@
 package ru.fivep.app.screens.project
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
+import ru.fivep.app.screens.project.views.PreviewSecondContent
 import ru.fivep.app.screens.project.views.ProjectDeleteDialog
 import ru.fivep.app.screens.project.views.SecondContent
 import ru.fivep.app.screens.project.views.SecondTopBar
-
-@ExperimentalMaterial3Api
-@Composable
-@Preview
-fun PreviewProjectScreen() {
-    val navController = rememberNavController()
-    ProjectScreen(
-        navController = navController,
-        projectId = 0
-    )
-}
 
 @ExperimentalMaterial3Api
 @Composable
@@ -58,9 +49,21 @@ fun ProjectScreen(
             SecondTopBar(
                 scrollBehavior,
                 {
-                    projectViewModel.onEvent(ProjectEvent.SaveProject)
-                    coroutineScope.launch {
-                        snackBarHostState.showSnackbar("Сохранено!")
+                    if (projectViewModel.state.value.title.isBlank()) {
+                        coroutineScope.launch {
+                            snackBarHostState.showSnackbar(
+                                message = "Название не может быть пустым",
+                                actionLabel = "Понятно"
+                            )
+                        }
+                    } else {
+                        projectViewModel.onEvent(ProjectEvent.SaveProject)
+                        coroutineScope.launch {
+                            snackBarHostState.showSnackbar(
+                                message = "Сохранено!",
+                                actionLabel = "ОК"
+                            )
+                        }
                     }
                 },
                 { dialogVisible = true } // Диалог, чтобы подтвердить удаление
@@ -68,12 +71,48 @@ fun ProjectScreen(
         },
         content = { SecondContent(navController, projectViewModel) },
         floatingActionButton = {
-            FloatingActionButton(
+            ExtendedFloatingActionButton(
+                text = {
+                    Text("Новая задача")
+                },
+                icon = {
+                    Icon(
+                        imageVector = Icons.Filled.Edit,
+                        contentDescription = null
+                    )
+                },
                 onClick = {
                     navController.navigate("create_task?projectId=$projectId")
                 }
-            ) {
-            Text("Новая задача")
-        } }
+            )
+        }
+    )
+}
+
+@ExperimentalMaterial3Api
+@Composable
+@Preview
+fun PreviewProjectScreen() {
+    val snackBarHostState = remember { SnackbarHostState() }
+    val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
+
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackBarHostState) },
+        topBar = { SecondTopBar(scrollBehavior, {}, {}) },
+        content = { PreviewSecondContent() },
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                text = {
+                    Text("Новая задача")
+                },
+                icon = {
+                    Icon(
+                        imageVector = Icons.Filled.Edit,
+                        contentDescription = null
+                    )
+                },
+                onClick = {}
+            )
+        }
     )
 }

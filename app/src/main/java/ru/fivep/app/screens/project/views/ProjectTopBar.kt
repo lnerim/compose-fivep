@@ -4,25 +4,35 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun SecondTopBar(
     scrollBehavior: TopAppBarScrollBehavior,
     onSave: () -> Unit,
-    onDelete: () -> Unit
+    onDelete: () -> Unit,
+    onInfo: () -> Unit = {}
 ) {
     SmallTopAppBar(
-        title = { Text("Мой проект") },
+        title = {
+            Text(
+                text = "Мой проект",
+                fontWeight = FontWeight.Medium,
+                fontSize = 20.sp
+            )
+        },
         navigationIcon = {
-            IconButton(onClick = { /* doSomething() */ }) {
+            IconButton(onClick = onInfo) {
                 Icon(
-                    imageVector = Icons.Filled.Menu,
-                    contentDescription = "Localized description"
+                    imageVector = Icons.Filled.Info,
+                    contentDescription = "Инфо"
                 )
             }
         },
@@ -35,7 +45,7 @@ fun SecondTopBar(
             }
             IconButton(onClick = onSave) {
                 Icon(
-                    imageVector = Icons.Filled.Done,
+                    imageVector = Icons.Filled.Save,
                     contentDescription = "Сохранить"
                 )
             }
