@@ -1,7 +1,6 @@
 package ru.fivep.app
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -40,7 +39,7 @@ class MainActivity : ComponentActivity() {
             FivePTheme {
                 Surface {
 
-                    NavHost(navController = navController, startDestination = "splash") {
+                    NavHost(navController = navController, startDestination = "main") {
 
                         composable("splash") { SplashScreen(navController) }
 

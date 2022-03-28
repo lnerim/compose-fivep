@@ -6,17 +6,18 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Source
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import ru.fivep.app.data.projects.ProjectEntity
-import ru.fivep.app.ui.elements.common.MarqueeText
 
 @Preview(showBackground = true)
 @Composable
@@ -57,10 +58,11 @@ fun MainItem(
                     .height(40.dp),
                 contentAlignment = Alignment.Center
             ) {
-                MarqueeText(
+                Text(
                     text = data.title,
                     fontSize = 18.sp,
-                    fontWeight = FontWeight.W400
+                    fontWeight = FontWeight.W400,
+                    textAlign = TextAlign.Justify
                 )
             }
         }

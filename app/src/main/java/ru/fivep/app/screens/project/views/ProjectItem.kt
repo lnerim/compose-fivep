@@ -4,18 +4,18 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PushPin
-import androidx.compose.material.icons.filled.Source
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.fivep.app.data.tasks.TaskEntity
-import ru.fivep.app.ui.elements.common.MarqueeText
 
 @Composable
 fun ProjectTaskItem(
@@ -46,10 +46,11 @@ fun ProjectTaskItem(
                     .height(40.dp),
                 contentAlignment = Alignment.Center
             ) {
-                MarqueeText(
+                Text(
                     text = data.task,
                     fontSize = 18.sp,
-                    fontWeight = FontWeight.W400
+                    fontWeight = FontWeight.W400,
+                    textAlign = TextAlign.Justify
                 )
             }
         }
