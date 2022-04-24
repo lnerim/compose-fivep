@@ -24,7 +24,13 @@ fun MainScreen(
     val state = mainViewModel.state.value
 
     Scaffold(
-        topBar = { MainTopBar() },
+        topBar = {
+            MainTopBar(
+                onInfo = {
+                    navController.navigate("recommendation/main")
+                }
+            )
+        },
         content = {
             if (state.projectList.isNotEmpty())
                 MainLazyColumn(navController, state.projectList)

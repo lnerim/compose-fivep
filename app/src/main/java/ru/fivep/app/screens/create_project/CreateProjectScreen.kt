@@ -2,7 +2,6 @@ package ru.fivep.app.screens.create_project
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -10,11 +9,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.lifecycle.viewmodel.compose.viewModel
-import ru.fivep.app.screens.create_task.TaskEvent
 
 @ExperimentalMaterial3Api
 @Composable
@@ -74,9 +71,12 @@ fun CreateProjectScreen(
                 )
                 Text(
                     modifier = Modifier.padding(12.dp),
-                    text = " - Название Вашего проекта должно ярко и просто отражать цель, смысл и иногда продукт.",
-                    fontWeight = FontWeight.W300,
-                    textAlign = TextAlign.Justify
+                    text = " — Название проекта отражает его идею.\n" +
+                            "\n" +
+                            " — Название проекта должно вызывать у читателя правильные ассоциации, соответствующие по смыслу теме работы.\n" +
+                            "\n" +
+                            " — Название проекта должно быть коротким. Чем проще звучит название проекта, тем лучше оно воспринимается.",
+                    fontWeight = FontWeight.W300
                 )
 
                 Spacer(modifier = Modifier)
@@ -86,7 +86,8 @@ fun CreateProjectScreen(
                         .fillMaxWidth()
                         .padding(18.dp),
                     value = text,
-                    onValueChange = { text = it }
+                    onValueChange = { text = it },
+                    singleLine = true
                 )
 
                 Button(

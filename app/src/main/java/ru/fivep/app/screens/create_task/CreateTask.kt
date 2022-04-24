@@ -9,7 +9,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -92,10 +91,12 @@ fun CreateTask(
                 )
                 Text(
                     modifier = Modifier.padding(12.dp),
-                    text = " - Задачи проектной работы формируются после постановки цели и описывают, " +
-                            "что конкретно необходимо будет сделать для её достижения.",
-                    fontWeight = FontWeight.W300,
-                    textAlign = TextAlign.Justify
+                    text = " — Задачи проектной работы формируются после постановки цели и описывают, что конкретно необходимо будет сделать для её достижения.\n" +
+                            "\n" +
+                            " — Формулирование задач начинается с глаголов совершенного вида в неопределенной форме.\n" +
+                            "\n" +
+                            " — Задачи должны быть взаимосвязаны и должны отражать общий путь достижения цели.",
+                    fontWeight = FontWeight.W300
                 )
 
                 Spacer(modifier = Modifier)
@@ -105,7 +106,8 @@ fun CreateTask(
                         .fillMaxWidth()
                         .padding(18.dp),
                     value = state.task,
-                    onValueChange = { createTaskViewModel.onEvent(TaskEvent.ChangeTask(it)) }
+                    onValueChange = { createTaskViewModel.onEvent(TaskEvent.ChangeTask(it)) },
+                    singleLine = true
                 )
 
                 Button(

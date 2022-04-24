@@ -47,8 +47,9 @@ fun ProjectScreen(
         snackbarHost = { SnackbarHost(snackBarHostState) },
         topBar = {
             SecondTopBar(
-                scrollBehavior,
-                {
+                scrollBehavior = scrollBehavior,
+                onExit = { navController.navigateUp() },
+                onSave = {
                     if (projectViewModel.state.value.title.isBlank()) {
                         coroutineScope.launch {
                             snackBarHostState.showSnackbar(
@@ -66,7 +67,8 @@ fun ProjectScreen(
                         }
                     }
                 },
-                { dialogVisible = true } // Диалог, чтобы подтвердить удаление
+                onDelete = { dialogVisible = true }, // Диалог, чтобы подтвердить удаление
+                onInfo = { navController.navigate("recommendation/project") }
             )
         },
         content = { SecondContent(navController, projectViewModel) },
@@ -98,7 +100,7 @@ fun PreviewProjectScreen() {
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackBarHostState) },
-        topBar = { SecondTopBar(scrollBehavior, {}, {}) },
+        topBar = { SecondTopBar(scrollBehavior, {}, {}, {}) },
         content = { PreviewSecondContent() },
         floatingActionButton = {
             ExtendedFloatingActionButton(

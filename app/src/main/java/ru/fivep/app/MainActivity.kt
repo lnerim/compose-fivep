@@ -22,6 +22,8 @@ import ru.fivep.app.screens.create_project.CreateProjectScreen
 import ru.fivep.app.screens.create_project.CreateProjectViewModel
 import ru.fivep.app.screens.create_task.CreateTask
 import ru.fivep.app.screens.create_task.CreateTaskViewModel
+import ru.fivep.app.screens.recommendation.RecommendationScreen
+import ru.fivep.app.screens.recommendation.RecommendationText
 import ru.fivep.app.ui.theme.FivePTheme
 
 @ExperimentalMaterialApi
@@ -42,6 +44,23 @@ class MainActivity : ComponentActivity() {
                     NavHost(navController = navController, startDestination = "main") {
 
                         composable("splash") { SplashScreen(navController) }
+
+                        composable(
+                            route = "recommendation/{text}",
+                            arguments = listOf(
+                                navArgument("text") {
+                                    type = NavType.StringType
+                                }
+                            )
+                        ) {
+                            val realText = mapOf(
+                                "main" to RecommendationText.RECOMMENDATION_MAIN,
+                                "project" to RecommendationText.RECOMMENDATION_PROJECT,
+                                "default" to RecommendationText.RECOMMENDATION_DEFAULT
+                            )
+                            val text = it.arguments?.getString("text") ?: "default"
+                            RecommendationScreen(navController, realText[text]!!)
+                        }
 
                         composable("main") {
 
